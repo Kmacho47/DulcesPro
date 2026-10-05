@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dulce Pro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Dulce Pro, inicio"><span>DP</span>Dulce Pro</a>
+    <nav aria-label="Secciones principales">
+      <a href="#ingredients" data-view-link="ingredients">Ingredientes</a>
+      <a href="#recipes" data-view-link="recipes">Recetas</a>
+      <a href="#production" data-view-link="production">Producción</a>
+    </nav>
+    <span class="connection" id="connection-status">Conectando…</span>
+  </header>
+
+  <main class="container">
+    <section class="view welcome" id="home-view">
+      <p class="eyebrow">Dulce Pro</p>
+      <h1>¿Qué quieres gestionar?</h1>
+      <p class="welcome-copy">Elige una opción para comenzar.</p>
+      <div class="menu-cards">
+        <a class="menu-card" href="#ingredients"><span class="menu-icon">◌</span><h2>Ingredientes</h2><p>Consulta, crea, edita y elimina los insumos de tu inventario.</p><span class="menu-link">Abrir ingredientes →</span></a>
+        <a class="menu-card" href="#recipes"><span class="menu-icon">⌘</span><h2>Recetas</h2><p>Organiza recetas, sus ingredientes y conoce el costo total.</p><span class="menu-link">Abrir recetas →</span></a>
+        <a class="menu-card" href="#production"><span class="menu-icon">↗</span><h2>Producción</h2><p>Planifica cantidades, tandas, costos e ingredientes necesarios.</p><span class="menu-link">Planificar producción →</span></a>
+      </div>
+    </section>
+    <section class="view" id="ingredients-view" hidden>
+      <div class="page-heading"><div><p class="eyebrow">Inventario</p><h1>Ingredientes</h1><p>Gestiona las materias primas y sus precios.</p></div><button class="primary" id="new-ingredient">+ Nuevo ingrediente</button></div>
+      <div class="card table-card"><div class="table-wrap"><table><thead><tr><th>Nombre</th><th>Unidad</th><th>Precio</th><th aria-label="Acciones"></th></tr></thead><tbody id="ingredients-body"></tbody></table></div><p class="empty" id="ingredients-empty" hidden>Aún no hay ingredientes.</p></div>
+    </section>
+
+    <section class="view" id="recipes-view" hidden>
+      <div class="page-heading"><div><p class="eyebrow">Catálogo</p><h1>Recetas</h1><p>Crea y administra las preparaciones base.</p></div><button class="primary" id="new-recipe">+ Nueva receta</button></div>
+      <div class="recipes-layout"><div class="card table-card"><div class="table-wrap"><table><thead><tr><th>Nombre</th><th>Rendimiento</th><th aria-label="Acciones"></th></tr></thead><tbody id="recipes-body"></tbody></table></div><p class="empty" id="recipes-empty" hidden>Aún no hay recetas.</p></div>
+      <aside class="recipe-detail card" id="recipe-detail"><div class="empty-state"><span>⌁</span><h2>Selecciona una receta</h2><p>Podrás gestionar sus ingredientes y consultar su costo.</p></div></aside></div>
+    </section>
+
+    <section class="view" id="production-view" hidden>
+      <div class="page-heading compact"><div><p class="eyebrow">Planificación</p><h1>Costos y producción</h1><p>Consulta la composición, costo y cantidades requeridas de cada receta.</p></div></div>
+      <div class="card selector-card"><label for="production-recipe-selector">Receta a producir</label><div class="select-row"><select id="production-recipe-selector"><option value="">Selecciona una receta</option></select></div></div>
+      <div id="production-content" hidden>
+        <div class="card production-card"><div><h2>Calcular producción</h2><p>Indica las porciones deseadas para conocer tandas, sobrantes, costos e insumos.</p></div><form id="production-form" class="production-form"><label>Porciones deseadas<input id="portions-input" type="number" min="1" step="1" required placeholder="Ej. 50"></label><button class="primary" type="submit">Calcular</button></form></div>
+        <div id="production-result" hidden><div class="metrics production-metrics"><article class="metric"><span>Recetas necesarias</span><strong id="needed-recipes">—</strong><small id="exact-recipes"></small></article><article class="metric"><span>Porciones sobrantes</span><strong id="remaining-portions">—</strong><small>al completar tandas</small></article><article class="metric"><span>Costo exacto</span><strong id="exact-cost">—</strong><small>para las porciones solicitadas</small></article><article class="metric"><span>Costo de producción</span><strong id="real-cost">—</strong><small>considerando tandas completas</small></article></div><div class="card table-card"><div class="card-title"><div><h2>Ingredientes necesarios</h2><p>Para producir la cantidad solicitada.</p></div></div><div class="table-wrap"><table><thead><tr><th>Ingrediente</th><th>Cantidad necesaria</th><th>Costo</th></tr></thead><tbody id="necessary-ingredients-body"></tbody></table></div></div></div>
+      </div>
+      <div class="empty-state" id="production-placeholder"><span>⌁</span><h2>Selecciona una receta</h2><p>Calcula cantidades, costos y sobrantes para tu próxima producción.</p></div>
+    </section>
+  </main>
+
+  <dialog id="ingredient-dialog"><form method="dialog" id="ingredient-form"><div class="dialog-heading"><h2 id="ingredient-dialog-title">Nuevo ingrediente</h2><button type="button" class="icon-button" data-close-dialog="ingredient-dialog" aria-label="Cerrar">×</button></div><input id="ingredient-id" type="hidden"><label>Nombre<input id="ingredient-name" required maxlength="150"></label><label>Unidad<select id="ingredient-unit" required><option value="kg">kg</option><option value="g">g</option><option value="l">l</option><option value="ml">ml</option><option value="unidad">unidad</option></select></label><label>Precio<input id="ingredient-price" type="number" min="0.01" step="0.01" required></label><p class="form-error" id="ingredient-error"></p><div class="dialog-actions"><button type="button" data-close-dialog="ingredient-dialog" class="secondary">Cancelar</button><button class="primary" id="ingredient-submit" value="default">Guardar</button></div></form></dialog>
+  <dialog id="recipe-dialog"><form method="dialog" id="recipe-form"><div class="dialog-heading"><h2 id="recipe-dialog-title">Nueva receta</h2><button type="button" class="icon-button" data-close-dialog="recipe-dialog" aria-label="Cerrar">×</button></div><input id="recipe-id" type="hidden"><label>Nombre<input id="recipe-name" required maxlength="150"></label><label>Rendimiento (porciones)<input id="recipe-yield-input" type="number" min="1" step="1" required></label><p class="form-error" id="recipe-error"></p><div class="dialog-actions"><button type="button" data-close-dialog="recipe-dialog" class="secondary">Cancelar</button><button class="primary" id="recipe-submit" value="default">Guardar</button></div></form></dialog>
+  <dialog id="recipe-ingredient-dialog"><form method="dialog" id="recipe-ingredient-form"><div class="dialog-heading"><h2 id="recipe-ingredient-dialog-title">Añadir ingrediente</h2><button type="button" class="icon-button" data-close-dialog="recipe-ingredient-dialog" aria-label="Cerrar">×</button></div><input id="recipe-ingredient-id" type="hidden"><label>Ingrediente<select id="relation-ingredient" required></select></label><label>Cantidad utilizada<input id="relation-quantity" type="number" min="0.01" step="0.01" required></label><p class="form-error" id="recipe-ingredient-error"></p><div class="dialog-actions"><button type="button" data-close-dialog="recipe-ingredient-dialog" class="secondary">Cancelar</button><button class="primary" value="default">Guardar</button></div></form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

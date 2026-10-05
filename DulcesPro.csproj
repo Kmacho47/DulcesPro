@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>b577c13c-b863-4cf8-82bc-7862c20c1efd</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="NewFolder1\**" />
+    <Compile Remove="NewFolder2\**" />
+    <Compile Remove="NewFolder3\**" />
+    <Compile Remove="NewFolder4\**" />
+    <Compile Remove="NewFolder\**" />
+    <Compile Remove="Validetors\NewFolder\**" />
+    <Content Remove="NewFolder1\**" />
+    <Content Remove="NewFolder2\**" />
+    <Content Remove="NewFolder3\**" />
+    <Content Remove="NewFolder4\**" />
+    <Content Remove="NewFolder\**" />
+    <Content Remove="Validetors\NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder1\**" />
+    <EmbeddedResource Remove="NewFolder2\**" />
+    <EmbeddedResource Remove="NewFolder3\**" />
+    <EmbeddedResource Remove="NewFolder4\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <EmbeddedResource Remove="Validetors\NewFolder\**" />
+    <None Remove="NewFolder1\**" />
+    <None Remove="NewFolder2\**" />
+    <None Remove="NewFolder3\**" />
+    <None Remove="NewFolder4\**" />
+    <None Remove="NewFolder\**" />
+    <None Remove="Validetors\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.2.0" />
+    <PackageReference Include="FluentValidation" Version="11.8.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+</Project>
